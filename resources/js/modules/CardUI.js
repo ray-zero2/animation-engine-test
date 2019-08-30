@@ -2,7 +2,7 @@ export default class {
   constructor() {
     this.$card = document.querySelector('.card');
     this.bind();
-    this.doesCardOpen = false;
+    this.isOpened = false;
     this.text = 'open';
   }
 
@@ -13,10 +13,10 @@ export default class {
   }
   handleClickedCard() {
     velocity(this.$card, 'finish');
-    this.doesCardOpen ? this.cardClose() : this.cardOpen();
+    this.isOpened ? this.close() : this.open();
   }
 
-  cardOpen() {
+  open() {
     velocity(
       this.$card,
       { rotateY: 90 },
@@ -24,8 +24,8 @@ export default class {
         duration: 200,
         loop: 1,
         progress: (elements, complete) => {
-          if (complete === 1 && this.doesCardOpen === false) {
-            this.doesCardOpen = true;
+          if (!this.isOpened && complete === 1) {
+            this.isOpened = true;
             this.$card.classList.add('card-front');
             this.$card.innerText = this.text;
           }
@@ -34,7 +34,7 @@ export default class {
     );
   }
 
-  cardClose() {
+  close() {
     velocity(
       this.$card,
       { rotateY: 90 },
@@ -42,8 +42,8 @@ export default class {
         duration: 200,
         loop: 1,
         progress: (elements, complete) => {
-          if (complete === 1 && this.doesCardOpen === true) {
-            this.doesCardOpen = false;
+          if (this.isOpened && complete === 1) {
+            this.isOpened = false;
             this.$card.classList.remove('card-front');
             this.$card.innerText = '';
           }
