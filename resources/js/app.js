@@ -1,7 +1,7 @@
-// import slider from './modules/slider';
+import cardUI from './modules/CardUI';
 class App {
   constructor() {
-    // new slider();
+    new cardUI();
   }
 }
 new App();
