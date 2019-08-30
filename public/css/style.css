@@ -1,0 +1,12 @@
+.card {
+  width: 250px;
+  height: 250px;
+  border: 1px solid black;
+  margin: 300px auto;
+  background: url("../images/card_back.jpg") center;
+  background-size: 50px;
+}
+
+.card-front {
+  background: white;
+}
