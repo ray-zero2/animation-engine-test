@@ -1,7 +1,9 @@
-import cardUI from './modules/CardUI';
+import CardUI from './modules/CardUI';
+import LoopedAnimation from './modules/LoopedAnimation';
 class App {
   constructor() {
-    new cardUI();
+    new CardUI();
+    new LoopedAnimation();
   }
 }
 new App();

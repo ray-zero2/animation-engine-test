@@ -4,11 +4,26 @@
   width: 250px;
   height: 250px;
   border: 1px solid black;
-  margin: 300px auto;
+  margin: 100px auto;
   background: url('../images/card_back.jpg') center;
   background-size: 50px;
 }
 
 .card-front{
   background: white;
+}
+
+.button-wrapper{
+  display: flex;
+  margin: 100px auto 0;
+  width: 180px;
+  .btn{
+    display: block;
+    width: 80px;
+    height: 70px;
+  }
+
+  .btn + .btn{
+    margin-left: 20px;
+  }
 }

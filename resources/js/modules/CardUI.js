@@ -1,6 +1,9 @@
+//THIS CODE REQUIRES VELOCITY.JS
 export default class {
   constructor() {
-    this.$card = document.querySelector('.card');
+    this.$card = document.querySelector('.js-card');
+    this.$shake = document.querySelector('.js-shake');
+    this.$stop = document.querySelector('.js-stop');
     this.bind();
     this.isOpened = false;
     this.text = 'open';
@@ -12,7 +15,6 @@ export default class {
     });
   }
   handleClickedCard() {
-    velocity(this.$card, 'finish');
     this.isOpened ? this.close() : this.open();
   }
 
