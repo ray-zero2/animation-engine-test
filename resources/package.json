@@ -22,6 +22,7 @@
     "build": "webpack --mode production --watch"
   },
   "dependencies": {
+    "intersection-observer": "^0.7.0",
     "velocity-animate": "^1.5.2"
   }
 }
