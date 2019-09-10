@@ -31,3 +31,17 @@
     margin-left: 20px;
   }
 }
+
+.line-desc{
+  background-color: rgb(196, 232, 139);
+  position: fixed;
+  z-index: 2;
+  top: 75%;
+}
+.line{
+  width: 100vw;
+  height: 3px;
+  background-color: rgb(196, 232, 139);
+  position: fixed;
+  top: 75%;
+}

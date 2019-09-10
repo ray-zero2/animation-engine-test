@@ -2,19 +2,17 @@
 export default class {
   constructor() {
     this.$card = document.querySelector('.js-card');
-    this.$shake = document.querySelector('.js-shake');
-    this.$stop = document.querySelector('.js-stop');
-    this.bind();
     this.isOpened = false;
-    this.text = 'open';
+    this.bind();
   }
 
   bind() {
     this.$card.addEventListener('click', () => {
-      this.handleClickedCard();
+      this.handleClickCard();
     });
   }
-  handleClickedCard() {
+
+  handleClickCard() {
     this.isOpened ? this.close() : this.open();
   }
 
@@ -29,7 +27,7 @@ export default class {
           if (!this.isOpened && complete === 1) {
             this.isOpened = true;
             this.$card.classList.add('card-front');
-            this.$card.innerText = this.text;
+            this.$card.innerText = 'open';
           }
         }
       }

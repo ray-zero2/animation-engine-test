@@ -29,3 +29,18 @@
 .button-wrapper .btn + .btn {
   margin-left: 20px;
 }
+
+.line-desc {
+  background-color: #c4e88b;
+  position: fixed;
+  z-index: 2;
+  top: 75%;
+}
+
+.line {
+  width: 100vw;
+  height: 3px;
+  background-color: #c4e88b;
+  position: fixed;
+  top: 75%;
+}

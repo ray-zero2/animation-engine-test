@@ -4,7 +4,6 @@ export default class {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');
     this.$target = document.querySelector('.js-movedTarget');
-    this.frameID = 0;
     this.isAnimated = false;
     this.hasQueue = false;
     this.bind();
@@ -23,10 +22,12 @@ export default class {
     this.move();
     this.isAnimated = true;
   }
+
   handleClickStop() {
-    velocity(this.$target, 'stop', 'move');
+    this.stop();
     this.isAnimated = false;
   }
+
   changeSize(prop, easing, duration) {
     velocity(
       this.$target,
@@ -98,5 +99,8 @@ export default class {
       this.hasQueue === true;
     }
     velocity.Utilities.dequeue(this.$target, 'move');
+  }
+  stop() {
+    velocity(this.$target, 'stop', 'move');
   }
 }
