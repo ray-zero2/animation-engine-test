@@ -31,13 +31,9 @@ export default class IntersectionVelocity {
 
       //ターゲットの設定
       const $target = document.querySelector($element.dataset.target);
-      let $data = 0;
-      if ($target) {
-        $target.$action = $element;
-        $data = $target;
-      } else {
-        $data = $element;
-      }
+      const isExistsTarget = $target !== null;
+      if (isExistsTarget) $target.$action = $element;
+      const $data = isExistsTarget ? $target : $element;
 
       //バイアスの設定とバイアスごとに要素の振り分け
       const biasValue =
