@@ -1,10 +1,10 @@
 import 'intersection-observer';
+
 //THIS CODE REQUIRES VELOCITY.JS
 export default class IntersectionVelocity {
   constructor() {
-    this.$elements = Array.from(document.querySelectorAll('.js-observed'));
     this.elementsByBias = [];
-    this.observers = [];
+    // this.observers = [];
     this.initialize();
     window.addEventListener('DOMContentLoaded', () => {
       this.createObservers();
@@ -12,12 +12,14 @@ export default class IntersectionVelocity {
   }
 
   initialize() {
-    this.$elements.forEach($element => {
+    const $elements = Array.from(document.querySelectorAll('.js-observed'));
+    $elements.forEach($element => {
+      $element.style.opacity = 0;
       $element.delay = $element.dataset.delay || 0;
       $element.duration = $element.dataset.duration || 800;
       $element.easing = $element.dataset.easing || [250, 20];
-      $element.style.opacity = 0;
 
+      //エフェクトの設定
       try {
         $element.property = JSON.parse($element.dataset.effect);
         if ($element.property.opacity === undefined) {
@@ -27,6 +29,7 @@ export default class IntersectionVelocity {
         $element.property = 'fadeIn';
       }
 
+      //ターゲットの設定
       const $target = document.querySelector($element.dataset.target);
       let $data = 0;
       if ($target) {
@@ -36,20 +39,26 @@ export default class IntersectionVelocity {
         $data = $element;
       }
 
-      const biasNum =
-        $element.dataset.bias === undefined ? 0 : $element.dataset.bias;
-      const index = this.elementsByBias.findIndex(v => v.bias === biasNum);
+      //バイアスの設定とバイアスごとに要素の振り分け
+      const biasValue =
+        $element.dataset.bias === undefined
+          ? 0
+          : parseInt($element.dataset.bias);
+      const index = this.elementsByBias.findIndex(
+        obj => obj.bias === biasValue
+      );
+      //新しいバイアスが設定されている場合、オブジェクトを作って配列に追加する
       if (index === -1) {
-        this.elementsByBias.push({ bias: biasNum, elements: [$data] });
+        this.elementsByBias.push({ bias: biasValue, elements: [$data] }); //{bias: バイアスの値, elements: そのバイアスが設定された要素の配列}
       } else {
         this.elementsByBias[index].elements.push($data);
       }
     });
   }
 
+  //バイアスごとにobserverを生成
   createObservers() {
     const defaultMargin = -25; //-25%
-
     this.elementsByBias.forEach(obj => {
       const margin = defaultMargin - obj.bias;
       const observer = new IntersectionObserver(
@@ -69,9 +78,9 @@ export default class IntersectionVelocity {
       obj.elements.forEach($element => {
         observer.observe($element);
       });
-
-      this.observers.push(observer);
+      // this.observers.push(observer);
     });
+    // console.log(this.observers);
   }
 
   animation(entry) {

@@ -4,8 +4,7 @@ export default class {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');
     this.$target = document.querySelector('.js-movedTarget');
-    this.isAnimated = false;
-    this.hasQueue = false;
+    this.hasStarted = false;
     this.bind();
   }
 
@@ -20,12 +19,11 @@ export default class {
 
   handleClickStart() {
     this.move();
-    this.isAnimated = true;
+    this.hasStarted = true;
   }
 
   handleClickStop() {
-    this.stop();
-    this.isAnimated = false;
+    this.pause();
   }
 
   changeSize(prop, easing, duration) {
@@ -37,8 +35,7 @@ export default class {
       },
       {
         easing: easing,
-        duration: duration,
-        queue: 'move'
+        duration: duration
       }
     );
   }
@@ -50,8 +47,7 @@ export default class {
       },
       {
         easing: easing,
-        duration: duration,
-        queue: 'move'
+        duration: duration
       }
     );
   }
@@ -63,8 +59,7 @@ export default class {
       },
       {
         easing: easing,
-        duration: duration,
-        queue: 'move'
+        duration: duration
       }
     );
   }
@@ -75,15 +70,14 @@ export default class {
       {
         easing: 'linear',
         duration: 500,
-        queue: 'move',
         complete: () => {
-          this.setQueue();
+          this.startAnimation();
         }
       }
     );
   }
 
-  setQueue() {
+  startAnimation() {
     this.rotation(360 * 5, 'easeInQuart', 300);
     this.changeSize(1.3, '[0.29, 1.53, 0.53, -0.52]', 500);
     this.changePosition('130px', 'linear', 500);
@@ -93,14 +87,9 @@ export default class {
   }
 
   move() {
-    if (this.isAnimated) return;
-    if (this.hasQueue === false) {
-      this.setQueue();
-      this.hasQueue === true;
-    }
-    velocity.Utilities.dequeue(this.$target, 'move');
+    this.hasStarted ? velocity(this.$target, 'resume') : this.startAnimation();
   }
-  stop() {
-    velocity(this.$target, 'stop', 'move');
+  pause() {
+    velocity(this.$target, 'pause');
   }
 }
