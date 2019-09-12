@@ -1,5 +1,5 @@
 //THIS CODE REQUIRES VELOCITY.JS
-export default class {
+export default class LoopedAnimation {
   constructor() {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');

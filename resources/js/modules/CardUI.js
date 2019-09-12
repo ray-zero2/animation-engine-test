@@ -1,5 +1,5 @@
 //THIS CODE REQUIRES VELOCITY.JS
-export default class {
+export default class CardUI {
   constructor() {
     this.$card = document.querySelector('.js-card');
     this.isOpened = false;
