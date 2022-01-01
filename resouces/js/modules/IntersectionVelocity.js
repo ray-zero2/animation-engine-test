@@ -1,6 +1,6 @@
 import 'intersection-observer';
 
-//THIS CODE REQUIRES VELOCITY.JS
+import velocity from 'velocity-animate';
 export default class IntersectionVelocity {
   constructor() {
     this.elementsByBias = [];

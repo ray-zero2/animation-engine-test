@@ -1,4 +1,4 @@
-//THIS CODE REQUIRES VELOCITY.JS
+import velocity from 'velocity-animate';
 export default class CardUI {
   constructor() {
     this.$card = document.querySelector('.js-card');

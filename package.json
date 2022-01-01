@@ -1,0 +1,18 @@
+{
+  "name": "animatioin-engine-test",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.45.2",
+    "vite": "^2.7.2"
+  },
+  "dependencies": {
+    "gsap": "^3.9.1",
+    "intersection-observer": "^0.12.0",
+    "velocity-animate": "^1.5.2"
+  }
+}
