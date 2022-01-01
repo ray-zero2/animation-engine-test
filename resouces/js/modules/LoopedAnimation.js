@@ -1,4 +1,4 @@
-//THIS CODE REQUIRES VELOCITY.JS
+import velocity from 'velocity-animate';
 export default class LoopedAnimation {
   constructor() {
     this.$start = document.querySelector('.js-start');
