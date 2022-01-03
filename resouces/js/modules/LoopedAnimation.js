@@ -1,11 +1,29 @@
-import velocity from 'velocity-animate';
+import { gsap, CustomEase } from 'gsap/all';
+gsap.registerPlugin(CustomEase);
+
 export default class LoopedAnimation {
   constructor() {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');
     this.$target = document.querySelector('.js-movedTarget');
-    this.hasStarted = false;
+    this.tl = gsap.timeline({repeat: -1, repeatDelay: 0.3, paused: true});
+    this.init();
     this.bind();
+  }
+
+  move() {
+    this.tl.play();
+  }
+  pause() {
+    this.tl.pause()
+  }
+
+  handleClickStart() {
+    this.move();
+  }
+
+  handleClickStop() {
+    this.pause();
   }
 
   bind() {
@@ -17,79 +35,72 @@ export default class LoopedAnimation {
     });
   }
 
-  handleClickStart() {
-    this.move();
-    this.hasStarted = true;
-  }
-
-  handleClickStop() {
-    this.pause();
-  }
-
-  changeSize(prop, easing, duration) {
-    velocity(
-      this.$target,
+  createAnimation() {
+    const target = this.$target;
+    this.tl.to(target,
       {
-        scaleX: prop,
-        scaleY: prop
+        rotateZ: 360*5,
+        duration: 1,
+        ease: 'power3.inout'
+      }
+    )
+    .to(
+      target,
+      {
+        scale: 1.3,
+        duration: 0.8,
+        // ベジェはcustomEaseで生成
+        ease: CustomEase.create('testEase', '.55,.05,.22,.99'),
+      }
+    )
+    .to(
+      target,
+      {
+        x: 300,
+        ease: 'testEase',
+        duration: 0.8
+      }
+    )
+    .to(
+      target,
+      {
+        scale: 1,
+        y: 200,
+        duration: 0.8,
+        ease: 'testEase'
+      }
+    )
+    .to(
+      target,
+      {
+        rotateZ: '+=90',
+        duration: 0.4,
+        ease: 'testEase'
       },
+      '<0.2' // <: 上のアニメーションの開始と同時、その後の数字はそこからの経過時間
+    )
+    .to(
+      target,
       {
-        easing: easing,
-        duration: duration
-      }
-    );
-  }
-  changePosition(prop, easing, duration) {
-    velocity(
-      this.$target,
-      {
-        translateX: prop
+        rotateZ: 0,
+        x: 0,
+        duration: 0.8,
+        delay: 0.3,
+        ease: 'testEase'
       },
+    )
+    .to(
+      target,
       {
-        easing: easing,
-        duration: duration
+        y: 0,
+        ease: 'elastic.out(1, 0.3)',
+        duration: 0.8,
+        delay: 0.3,
       }
-    );
-  }
-  rotation(prop, easing, duration) {
-    velocity(
-      this.$target,
-      {
-        rotateZ: prop
-      },
-      {
-        easing: easing,
-        duration: duration
-      }
-    );
-  }
-  resetPosition() {
-    velocity(
-      this.$target,
-      { translateX: '0px' },
-      {
-        easing: 'linear',
-        duration: 500,
-        complete: () => {
-          this.startAnimation();
-        }
-      }
-    );
+    )
   }
 
-  startAnimation() {
-    this.rotation(360 * 5, 'easeInQuart', 300);
-    this.changeSize(1.3, '[0.29, 1.53, 0.53, -0.52]', 500);
-    this.changePosition('130px', 'linear', 500);
-    this.changeSize(1, '[0.29, 1.53, 0.53, -0.52]', 500);
-    this.rotation(0, 'liner', 0);
-    this.resetPosition();
-  }
-
-  move() {
-    this.hasStarted ? velocity(this.$target, 'resume') : this.startAnimation();
-  }
-  pause() {
-    velocity(this.$target, 'pause');
+  init() {
+    this.createAnimation();
   }
 }
