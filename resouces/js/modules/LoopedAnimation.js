@@ -5,6 +5,9 @@ export default class LoopedAnimation {
   constructor() {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');
+    this.$slow = document.querySelector('.js-slow');
+    this.$fast = document.querySelector('.js-fast');
+    this.$timescale = document.querySelector('.js-timescale');
     this.$target = document.querySelector('.js-movedTarget');
     this.tl = gsap.timeline({repeat: -1, repeatDelay: 0.3, paused: true});
     this.init();
@@ -26,13 +29,25 @@ export default class LoopedAnimation {
     this.pause();
   }
 
+  handleClickSlow() {
+    const currentTimeScale = this.tl.timeScale();
+    const timeScale = currentTimeScale - 0.25;
+    this.tl.timeScale(timeScale);
+    this.$timescale.innerText = timeScale;
+  }
+
+  handleClickFast() {
+    const currentTimeScale = this.tl.timeScale();
+    const timeScale = currentTimeScale + 0.25;
+    this.tl.timeScale(timeScale);
+    this.$timescale.innerText = timeScale;
+  }
+
   bind() {
-    this.$start.addEventListener('click', () => {
-      this.handleClickStart();
-    });
-    this.$stop.addEventListener('click', () => {
-      this.handleClickStop();
-    });
+    this.$start.addEventListener('click', this.handleClickStart.bind(this), {passive: true});
+    this.$stop.addEventListener('click', this.handleClickStop.bind(this), {passive: true});
+    this.$slow.addEventListener('click', this.handleClickSlow.bind(this), {passive: true});
+    this.$fast.addEventListener('click', this.handleClickFast.bind(this), {passive: true});
   }
 
   createAnimation() {
