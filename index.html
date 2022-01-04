@@ -20,31 +20,39 @@
   <p class="timescale">timescale: <span class="js-timescale">1</span> </p>
   <div class="card js-movedTarget">loop, pause & resume</div>
   <div class="card js-observed">no setting(default)</div>
-  <div class="card js-observed" data-bias="0" data-duration="0">
+  <div class="card js-observed" data-bias="0" data-duration="0.5">
     bias0%</div>
-  <div class="card js-observed" data-bias="10" data-duration="0">
+  <div class="card js-observed" data-bias="10" data-duration="0.8">
     bias10%</div>
-  <div class="card js-observed" data-bias="20" data-duration="0">
+  <div class="card js-observed" data-bias="20" data-duration="2">
     bias20%</div>
-  <div class="card js-observed" data-bias="25" data-duration="0">
+  <div class="card js-observed" data-bias="25" data-duration="1">
     bias25%</div>
-  <div class="card js-observed" data-bias="60" data-duration="0">
+  <div class="card js-observed" data-bias="60" >
     bias70%</div>
-  <div class="card js-observed" data-bias="10" data-duration="0">
+  <div class="card js-observed" data-bias="10" >
     bias10%</div>
-  <div class="card js-observed" data-bias="20" data-duration="0">
+  <div class="card js-observed" data-bias="20" >
     bias20%</div>
-  <div class="card js-observed" data-bias="-10" data-duration="0">
+  <div class="card js-observed" data-bias="-10" >
     bias-10%</div>
-  <div class="card js-observed" data-bias="-20" data-duration="0">
+  <div class="card js-observed" data-bias="-20" >
     bias-20%</div>
-  <div class="card js-observed" data-bias="-25" data-duration="0">
+  <div class="card js-observed" data-bias="-25" >
     bias-25%</div>
-  <div class="card js-observed" data-effect='{"translateX": [0, -50],"translateY": [0, -50]}' data-duration="500">
+  <div class="card js-observed"
+    data-from='{"translateX": -50,"translateY": -50}'
+    data-to='{"translateX": 0,"translateY": 0}'
+    data-duration="0.5"
+  >
     data-set
   </div>
-  <div class="card js-observed" data-target=".target-test1" data-effect='{"rotateZ": 360, "translateX": [0, -1000]}'
-    data-duration="2000">observation target</div>
+  <div class="card js-observed"
+    data-target=".target-test1"
+    data-from='{"rotateZ": 360, "translateX": -1000}'
+    data-to='{"rotateZ": 0, "translateX": 0}'
+    data-duration="1.2"
+  >observation target</div>
   <div class="card target-test1">target</div>
   <div class="card js-observed" data-target=".target-test2" data-bias="10">observation target(default) + bias10%</div>
   <div class="card target-test2">target</div>
