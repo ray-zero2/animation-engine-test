@@ -1,95 +1,121 @@
-import velocity from 'velocity-animate';
+import { gsap, CustomEase } from 'gsap/all';
+gsap.registerPlugin(CustomEase);
+
 export default class LoopedAnimation {
   constructor() {
     this.$start = document.querySelector('.js-start');
     this.$stop = document.querySelector('.js-stop');
+    this.$slow = document.querySelector('.js-slow');
+    this.$fast = document.querySelector('.js-fast');
+    this.$timescale = document.querySelector('.js-timescale');
     this.$target = document.querySelector('.js-movedTarget');
-    this.hasStarted = false;
+    this.tl = gsap.timeline({repeat: -1, repeatDelay: 0.3, paused: true});
+    this.init();
     this.bind();
   }
 
-  bind() {
-    this.$start.addEventListener('click', () => {
-      this.handleClickStart();
-    });
-    this.$stop.addEventListener('click', () => {
-      this.handleClickStop();
-    });
+  move() {
+    this.tl.play();
+  }
+  pause() {
+    this.tl.pause()
   }
 
   handleClickStart() {
     this.move();
-    this.hasStarted = true;
   }
 
   handleClickStop() {
     this.pause();
   }
 
-  changeSize(prop, easing, duration) {
-    velocity(
-      this.$target,
-      {
-        scaleX: prop,
-        scaleY: prop
-      },
-      {
-        easing: easing,
-        duration: duration
-      }
-    );
-  }
-  changePosition(prop, easing, duration) {
-    velocity(
-      this.$target,
-      {
-        translateX: prop
-      },
-      {
-        easing: easing,
-        duration: duration
-      }
-    );
-  }
-  rotation(prop, easing, duration) {
-    velocity(
-      this.$target,
-      {
-        rotateZ: prop
-      },
-      {
-        easing: easing,
-        duration: duration
-      }
-    );
-  }
-  resetPosition() {
-    velocity(
-      this.$target,
-      { translateX: '0px' },
-      {
-        easing: 'linear',
-        duration: 500,
-        complete: () => {
-          this.startAnimation();
-        }
-      }
-    );
+  handleClickSlow() {
+    const currentTimeScale = this.tl.timeScale();
+    const timeScale = currentTimeScale - 0.25;
+    this.tl.timeScale(timeScale);
+    this.$timescale.innerText = timeScale;
   }
 
-  startAnimation() {
-    this.rotation(360 * 5, 'easeInQuart', 300);
-    this.changeSize(1.3, '[0.29, 1.53, 0.53, -0.52]', 500);
-    this.changePosition('130px', 'linear', 500);
-    this.changeSize(1, '[0.29, 1.53, 0.53, -0.52]', 500);
-    this.rotation(0, 'liner', 0);
-    this.resetPosition();
+  handleClickFast() {
+    const currentTimeScale = this.tl.timeScale();
+    const timeScale = currentTimeScale + 0.25;
+    this.tl.timeScale(timeScale);
+    this.$timescale.innerText = timeScale;
   }
 
-  move() {
-    this.hasStarted ? velocity(this.$target, 'resume') : this.startAnimation();
+  bind() {
+    this.$start.addEventListener('click', this.handleClickStart.bind(this), {passive: true});
+    this.$stop.addEventListener('click', this.handleClickStop.bind(this), {passive: true});
+    this.$slow.addEventListener('click', this.handleClickSlow.bind(this), {passive: true});
+    this.$fast.addEventListener('click', this.handleClickFast.bind(this), {passive: true});
   }
-  pause() {
-    velocity(this.$target, 'pause');
+
+  createAnimation() {
+    const target = this.$target;
+    this.tl.to(target,
+      {
+        rotateZ: 360*5,
+        duration: 1,
+        ease: 'power3.inout'
+      }
+    )
+    .to(
+      target,
+      {
+        scale: 1.3,
+        duration: 0.8,
+        // ベジェはcustomEaseで生成
+        ease: CustomEase.create('testEase', '.55,.05,.22,.99'),
+      }
+    )
+    .to(
+      target,
+      {
+        x: 300,
+        ease: 'testEase',
+        duration: 0.8
+      }
+    )
+    .to(
+      target,
+      {
+        scale: 1,
+        y: 200,
+        duration: 0.8,
+        ease: 'testEase'
+      }
+    )
+    .to(
+      target,
+      {
+        rotateZ: '+=90',
+        duration: 0.4,
+        ease: 'testEase'
+      },
+      '<0.2' // <: 上のアニメーションの開始と同時、その後の数字はそこからの経過時間
+    )
+    .to(
+      target,
+      {
+        rotateZ: 0,
+        x: 0,
+        duration: 0.8,
+        delay: 0.3,
+        ease: 'testEase'
+      },
+    )
+    .to(
+      target,
+      {
+        y: 0,
+        ease: 'elastic.out(1, 0.3)',
+        duration: 0.8,
+        delay: 0.3,
+      }
+    )
+  }
+
+  init() {
+    this.createAnimation();
   }
 }
