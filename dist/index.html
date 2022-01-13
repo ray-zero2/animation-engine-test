@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width , initial-scale=1.0">
+  <script type="module" crossorigin src="./assets/index.44019475.js"></script>
+  <link rel="modulepreload" href="./assets/vendor.b3670f03.js">
+  <link rel="stylesheet" href="./assets/index.4407f54c.css">
+</head>
+
+<body>
+  <h1>velocity.js test</h1>
+  <p>open card motion & loop & intersection observer</p>
+  <div class="card card-back js-card"></div>
+  <div class="button-wrapper">
+    <button class="btn js-start">move</button>
+    <button class="btn js-stop">stop</button>
+    <button class="btn js-slow">slow</button>
+    <button class="btn js-fast">fast</button>
+  </div>
+  <p class="timescale">timescale: <span class="js-timescale">1</span> </p>
+  <div class="card js-movedTarget">loop, pause & resume</div>
+  <div class="card js-observed">no setting(default)</div>
+  <div class="card js-observed" data-bias="0" data-duration="0.5">
+    bias0%</div>
+  <div class="card js-observed" data-bias="10" data-duration="0.8">
+    bias10%</div>
+  <div class="card js-observed" data-bias="20" data-duration="2">
+    bias20%</div>
+  <div class="card js-observed" data-bias="25" data-duration="1">
+    bias25%</div>
+  <div class="card js-observed" data-bias="60" >
+    bias70%</div>
+  <div class="card js-observed" data-bias="10" >
+    bias10%</div>
+  <div class="card js-observed" data-bias="20" >
+    bias20%</div>
+  <div class="card js-observed" data-bias="-10" >
+    bias-10%</div>
+  <div class="card js-observed" data-bias="-20" >
+    bias-20%</div>
+  <div class="card js-observed" data-bias="-25" >
+    bias-25%</div>
+  <div class="card js-observed"
+    data-from='{"translateX": -50,"translateY": -50}'
+    data-to='{"translateX": 0,"translateY": 0}'
+    data-duration="0.5"
+  >
+    data-set
+  </div>
+  <div class="card js-observed"
+    data-target=".target-test1"
+    data-from='{"rotateZ": 360, "translateX": -1000}'
+    data-to='{"rotateZ": 0, "translateX": 0}'
+    data-duration="1.2"
+  >observation target</div>
+  <div class="card target-test1">target</div>
+  <div class="card js-observed" data-target=".target-test2" data-bias="10">observation target(default) + bias10%</div>
+  <div class="card target-test2">target</div>
+  <div class="line-desc">default line = 25%</div>
+  <div class="line"></div>
+  
+</body>
+
+</html>
