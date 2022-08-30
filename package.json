@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "sass": "^1.45.2",
-    "vite": "^2.7.2"
+    "vite": "^2.9.13"
   },
   "dependencies": {
     "gsap": "^3.9.1",
